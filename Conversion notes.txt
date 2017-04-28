@@ -1,0 +1,6 @@
+restaurantdb --> catalogdb
+
+Restaurant --> Category
+
+MenuItem--> Product
+
