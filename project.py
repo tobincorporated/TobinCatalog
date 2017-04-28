@@ -200,20 +200,20 @@ def productJSON(category_id, product_id):
 
 
 @app.route('/category/JSON')
-def categorysJSON():
-    categorys = session.query(Category).all()
-    return jsonify(categorys=[r.serialize for r in categorys])
+def categoriesJSON():
+    categories = session.query(Category).all()
+    return jsonify(categories=[r.serialize for r in categories])
 
 
-# Show all categorys
+# Show all categories
 @app.route('/')
 @app.route('/category/')
-def showCategorys():
-    categorys = session.query(Category).order_by(asc(Category.name))
+def showCategories():
+    categories = session.query(Category).order_by(asc(Category.name))
     if 'username' not in login_session:
-        return render_template('publiccategorys.html', categorys=categorys)
+        return render_template('publiccategories.html', categories=categories)
     else:
-        return render_template('categorys.html', categorys = categorys)
+        return render_template('categories.html', categories = categories)
 
 # Create a new category
 @app.route('/category/new/', methods=['GET', 'POST'])
@@ -226,7 +226,7 @@ def newCategory():
         session.add(newCategory)
         flash('New Category %s Successfully Created' % newCategory.name)
         session.commit()
-        return redirect(url_for('showCategorys'))
+        return redirect(url_for('showCategories'))
     else:
         return render_template('newcategory.html')
 
@@ -242,7 +242,7 @@ def editCategory(category_id):
         if request.form['name']:
             editedCategory.name = request.form['name']
             flash('Category Successfully Edited %s' % editedCategory.name)
-            return redirect(url_for('showCategorys'))
+            return redirect(url_for('showCategories'))
     else:
         return render_template('editcategory.html', category=editedCategory)
 
@@ -262,7 +262,7 @@ def deleteCategory(category_id):
         session.delete(categoryToDelete)
         flash('%s Successfully Deleted' % categoryToDelete.name)
         session.commit()
-        return redirect(url_for('showCategorys', category_id=category_id))
+        return redirect(url_for('showCategories', category_id=category_id))
     else:
         return render_template('deletecategory.html', category=categoryToDelete)
 

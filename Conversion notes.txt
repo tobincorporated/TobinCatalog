@@ -4,3 +4,6 @@ Restaurant --> Category
 
 MenuItem--> Product
 
+menu, Menu, Menu Item, menu-item
+
+no course
