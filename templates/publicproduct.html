@@ -8,8 +8,8 @@
 		<div class="col-md-11 col-md-offset-1 padding-none">
 			<h1>{{ category.name }}
 			<figure class="creator">
-				<img src="{{ creator.picture }}">
-				<figcaption>added by {{creator.name}}</figcaption>
+				<img src="{{ url_for('static', filename='blank_user.gif') }}">
+				<figcaption>Category creator's name goes here</figcaption>
 			</figure>
 			</h1>
 
@@ -51,23 +51,19 @@
 		<div class="col-md-7"></div>
 	</div>
 
-	{% if products !=[] %}
+
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-3">
-				<h2>Appetizers</h2>
-					{% for i in products %}
 							<div class="product">
-								<h3>{{i.name}}</h3>
-								<p>{{i.description}}</p>
-								<p class="product-price">{{i.price}}</p>
-								<a href="{{url_for('editProduct', category_id = category.id, product_id=i.id ) }}">Edit</a> |
-								<a href="{{url_for('deleteProduct', category_id = category.id, product_id=i.id ) }}">Delete</a>
+								<h3>{{product.name}}</h3>
+								<p>{{product.description}}</p>
+								<p class="product-price">{{product.price}}</p>
+
 							</div>
-					{% endfor %}
 			</div>
 
 			<div class="col-md-1"></div>
 		</div>
-	{% endif %}
+
 {% endblock %}

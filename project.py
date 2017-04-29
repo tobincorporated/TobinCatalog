@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
-from sqlalchemy import create_engine, asc
+from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Category, Product, User
 from flask import session as login_session
@@ -142,6 +142,11 @@ def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
+def getCategoryFromProduct(product_id):
+    product = session.query(Product).filter_by(id=product_id).one()
+    category = session.query(Category).filter_by(id=product.category_id).one()
+    return category.name
+
 
 def getUserID(email):
     try:
@@ -210,10 +215,13 @@ def categoriesJSON():
 @app.route('/category/')
 def showCategories():
     categories = session.query(Category).order_by(asc(Category.name))
+    newProducts = session.query(Product).order_by(desc(Product.id)).slice(0,10)
     if 'username' not in login_session:
-        return render_template('publiccategories.html', categories=categories)
+        return render_template('publiccategories.html', categories=categories,
+        newProducts = newProducts)
     else:
-        return render_template('categories.html', categories = categories)
+        return render_template('categories.html', categories = categories,
+        newProducts = newProducts)
 
 # Create a new category
 @app.route('/category/new/', methods=['GET', 'POST'])
@@ -266,7 +274,7 @@ def deleteCategory(category_id):
     else:
         return render_template('deletecategory.html', category=categoryToDelete)
 
-# Show a category product
+# Show a category
 @app.route('/category/<int:category_id>/')
 @app.route('/category/<int:category_id>/product/')
 def showCategory(category_id):
@@ -274,9 +282,19 @@ def showCategory(category_id):
     products = session.query(Product).filter_by(
         category_id=category_id).all()
     creator = getUserInfo(category.user_id)
-    if 'username' not in login_session or creator != login_session.get('user_id'): #  login_session['user_id']:
+    if 'username' not in login_session or creator.id != login_session['user_id']: # login_session.get('user_id'): #
         return render_template('publiccategory.html', creator=creator, products=products, category=category)
     return render_template('category.html', products=products, category=category, creator = creator)
+
+# Show a category
+@app.route('/category/<int:category_id>/<int:product_id>')
+def showProduct(category_id,product_id):
+    category = session.query(Category).filter_by(id=category_id).one()
+    product = session.query(Product).filter_by(id=product_id).one()
+    creator = product.user_id
+    if 'username' not in login_session or creator != login_session['user_id']: # login_session.get('user_id'): #
+        return render_template('publicproduct.html', creator=creator, product=product, category=category)
+    return render_template('product.html', product=product, category=category, creator = creator)
 
 
 # Create a new product
@@ -288,7 +306,6 @@ def newProduct(category_id):
     if request.method == 'POST':
         newProduct = Product(name=request.form['name'],
                            description=request.form['description'], price=request.form['price'],
-                           course=request.form['course'],
                            user_id = login_session['user_id'],
                            category_id=category_id)
         session.add(newProduct)
@@ -316,8 +333,6 @@ def editProduct(category_id, product_id):
             editedProduct.description = request.form['description']
         if request.form['price']:
             editedProduct.price = request.form['price']
-        if request.form['course']:
-            editedProduct.course = request.form['course']
         session.add(editedProduct)
         session.commit()
         flash('Category Product Successfully Edited')
@@ -326,7 +341,7 @@ def editProduct(category_id, product_id):
         return render_template('editproduct.html', category_id=category_id, product_id=product_id, product=editedProduct)
 
 
-# Delete a product 
+# Delete a product
 @app.route('/category/<int:category_id>/product/<int:product_id>/delete', methods=['GET', 'POST'])
 def deleteProduct(category_id, product_id):
     if 'username' not in login_session:

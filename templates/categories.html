@@ -19,7 +19,7 @@
 <div class = 'flash'>
 		      {% with messages = get_flashed_messages() %}
       {% if messages %}
-          
+
         <ul>
         {% for message in messages %}
             <li> <strong> {{ message }} </strong> </li>
@@ -29,7 +29,7 @@
     {% endwith %}
 
 </div>
-	
+
 	<div class="row padding-top padding-bottom">
 		<div class="col-md-1"></div>
 		<div class="col-md-10 padding-none">
@@ -52,4 +52,15 @@
 			</div>
 		</a>
 	{% endfor %}
+
+	{% for p in newProducts %}
+	<p> <a href="{{url_for('showProduct', category_id = p.category_id, product_id=p.id)}}">{{p.name}} </a>(
+		{% for c in categories %}
+			{% if c.id == p.category_id %}
+				{{c.name}}
+			{% endif %}
+		{% endfor %}
+			)</p>
+	{% endfor %}
+
 {% endblock %}

@@ -20,8 +20,8 @@ session = DBSession()
 
 
 # Create dummy user
-User1 = User(name="Robo Barista", email="tinnyTim@udacity.com",
-             picture='https://pbs.twimg.com/profile_images/2671170543/18debd694829ed78203a5a36dd364160_400x400.png')
+User1 = User(name="Tobin", email="tobin.zachary@gmail.com",
+             picture='https://lh3.googleusercontent.com/-Nrf8Py-fzI8/AAAAAAAAAAI/AAAAAAAAA2E/MzosFqeiD8I/photo.jpg')
 session.add(User1)
 session.commit()
 
@@ -383,4 +383,4 @@ session.add(product1)
 session.commit()
 
 
-print "added menu items!"
+print "added product!"
