@@ -99,11 +99,13 @@ h3 {
 	background-color: #9FB80A;
 }
 .banner.main {
-	height: 150px;
-	background: url("/static/top-banner.jpg");
-	background-position: right;
+	height: 100px;
+	background: url("/static/logo-full.svg");
+	background-position: left;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: contain;
+  text-align: right;
+  border-bottom: solid #999;
 }
 .banner.menu {
 	height: 150px;
@@ -161,3 +163,9 @@ u }
 	text-align: center;
 
 }
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;}
+  

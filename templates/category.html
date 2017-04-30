@@ -58,8 +58,9 @@
 				<h2>Appetizers</h2>
 					{% for i in products %}
 							<div class="product">
-								<h3>{{i.name}}</h3>
-								<p>{{i.description}}</p>
+								<a href="{{url_for('showProduct', category_id = i.category_id, product_id=i.id)}}">
+                  <h3>{{i.name}}</h3>
+                </a>
 								<p class="product-price">{{i.price}}</p>
 								<a href="{{url_for('editProduct', category_id = category.id, product_id=i.id ) }}">Edit</a> |
 								<a href="{{url_for('deleteProduct', category_id = category.id, product_id=i.id ) }}">Delete</a>

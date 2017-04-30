@@ -59,7 +59,7 @@ class Product(Base):
 
 
 
-engine = create_engine('sqlite:///catalog.db')
+engine = create_engine('sqlite:///productcatalog.db')
 
 
 Base.metadata.create_all(engine)

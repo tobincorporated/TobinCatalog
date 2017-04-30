@@ -7,3 +7,12 @@ MenuItem--> Product
 menu, Menu, Menu Item, menu-item
 
 no course
+
+
+
+-----------------------------------------------
+
+
+Add Login Link
+
+Add Newest Products

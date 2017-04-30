@@ -1,21 +1,9 @@
-# OAuth2.0
-Starter Code for Auth&amp;Auth course
-# Installing the Vagrant VM for ud330 - Authentication & Authorization
+# Tobin Item Catalog
+## Description
+An App that runs a database of products in various fun categories.  Users can log in with Google Plus and add or modify categories and products.
 
-**Note: If you already have a vagrant machine installed from previous Udacity courses skip to the 'Fetch the Source Code and VM Configuration' section**
-
-In Lessons 2,3 and 4 of this course, you'll use a virtual machine (VM) to run a web server and a web app that uses it. The VM is a Linux system that runs on top of your own machine.  You can share files easily between your computer and the VM.
-
-We're using the Vagrant software to configure and manage the VM. Here are the tools you'll need to install to get it running:
-
-### Git
-
-If you don't already have Git installed, [download Git from git-scm.com.](http://git-scm.com/downloads) Install the version for your operating system.
-
-On Windows, Git will provide you with a Unix-style terminal and shell (Git Bash).  
-(On Mac or Linux systems you can use the regular terminal program.)
-
-You will need Git to install the configuration for the VM. If you'd like to learn more about Git, [take a look at our course about Git and Github](http://www.udacity.com/course/ud775).
+## Installation
+In order to run this app, you will want some virtualization software.  Follow along with Udacity's directions for installing VirtualBox and Vagrant:
 
 ### VirtualBox
 
@@ -29,32 +17,25 @@ Vagrant is the software that configures the VM and lets you share files between 
 
 **Windows Note:** The Installer may ask you to grant network permissions to Vagrant or make a firewall exception. Be sure to allow this.
 
-## Fetch the Source Code and VM Configuration
+## How to run the App
 
-**Windows:** Use the Git Bash program (installed with Git) to get a Unix-style terminal.  
-**Other systems:** Use your favorite terminal program.
+Using the terminal, change directory to TobinCatalog (**cd TobinCatalog**), then type **vagrant up** to launch your virtual machine.
 
-From the terminal, run:
+Once it is up and running, type **vagrant ssh** to log into the virtual machine.
 
-    git clone https://github.com/udacity/OAuth2.0 oauth
-
-This will give you a directory named **oauth** complete with the source code for the flask application, a vagrantfile, and a bootstrap.sh file for installing all of the necessary tools. 
-
-## Run the virtual machine!
-
-Using the terminal, change directory to oauth (**cd oauth**), then type **vagrant up** to launch your virtual machine.
-
-
-## Running the Restaurant Menu App
-Once it is up and running, type **vagrant ssh**. This will log your terminal into the virtual machine, and you'll get a Linux shell prompt. When you want to log out, type **exit** at the shell prompt.  To turn the virtual machine off (without deleting anything), type **vagrant halt**. If you do this, you'll need to run **vagrant up** again before you can log into it.
-
-
-Now that you have Vagrant up and running type **vagrant ssh** to log into your VM.  change to the /vagrant directory by typing **cd /vagrant**. This will take you to the shared folder between your virtual machine and host machine.
-
-Type **ls** to ensure that you are inside the directory that contains project.py, database_setup.py, and two directories named 'templates' and 'static'
+change to the /vagrant directory by typing **cd /vagrant**. This will take you to the shared folder between your virtual machine and host machine.
 
 Now type **python database_setup.py** to initialize the database.
 
-Type **python lotsofmenus.py** to populate the database with restaurants and menu items. (Optional)
+Type **python lotsofproducts.py** to populate the database with products and categories. (Optional)
 
-Type **python project.py** to run the Flask web server. In your browser visit **http://localhost:5000** to view the restaurant menu app.  You should be able to view, add, edit, and delete menu items and restaurants.
+Type **python project.py** to run the Flask web server.
+
+## Using the App
+ In your browser visit **http://localhost:5000** to view the app. You can sign in using Google Plus. When logged in, you can add categories and products, as well as edit or delete categories and products you added.  You can log out at any point and the database will remember what you've added.
+
+## Exiting the App
+
+ You should be able to view, add, edit, and delete products and categories. When you want to log out, type **exit** at the shell prompt.  
+
+To turn the virtual machine off (without deleting anything), type **vagrant halt**. If you do this, you'll need to run **vagrant up** again before you can log into it.
