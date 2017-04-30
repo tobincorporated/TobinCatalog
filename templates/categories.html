@@ -1,17 +1,13 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-	<div class="row top-menu">
-		<div class="col-md-10"></div>
-		<div class="col-md-2 text-right">
-					</div>
-	</div>
-	<div class="row divider blue">
-		<div class="col-md-12"></div>
-	</div>
-  <div class="row">
-    	<div class="banner main col-md-12">
-        <h2>The Item Catalog!<h2>
+
+<div class="row divider blue">
+  <div class="col-md-12"></div>
+</div>
+<div class="row">
+  <div class="banner main col-md-12">
+    <h2>The Item Catalog!<h2>
       </div>
   </div>
    <div class="col-md-5">
@@ -19,13 +15,12 @@
       </div>
 
 <div class = 'flash'>
-		      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-
+	 {% with messages = get_flashed_messages() %}
+        {% if messages %}
         <ul>
-        {% for message in messages %}
-            <li> <strong> {{ message }} </strong> </li>
-        {% endfor %}
+          {% for message in messages %}
+              <li> <strong> {{ message }} </strong> </li>
+          {% endfor %}
         </ul>
         {% endif %}
     {% endwith %}
@@ -43,26 +38,29 @@
 		</div>
 		<div class="col-md-1"></div>
 	</div>
+  <div class="row">
+  <div class="col-md-6">
 	{% for category in categories %}
 		<a href = "{{url_for('showCategory', category_id = category.id)}}">
-			<div class="row">
-				<div class="col-md-1"></div>
-					<div class="col-md-10 category-list">
+					<div class="col-md-6 category-list">
 						<h3>{{category.name}}</h3>
-					</div>
-				<div class="col-md-1"></div>
-			</div>
-		</a>
+          </div>
+			</a>
 	{% endfor %}
+</div>
 
+<div class="col-md-6">
+  <h3> Check out the newest cool items!</h3>
 	{% for p in newProducts %}
-	<p> <a href="{{url_for('showProduct', category_id = p.category_id, product_id=p.id)}}">{{p.name}} </a>(
-		{% for c in categories %}
-			{% if c.id == p.category_id %}
-				{{c.name}}
-			{% endif %}
-		{% endfor %}
-			)</p>
+  <p> <a href="{{url_for('showProduct', category_id = p.category_id, product_id=p.id)}}">{{p.name}} </a>(
+     {% for c in categories %}
+       {% if c.id == p.category_id %}
+         {{c.name}}
+       {% endif %}
+     {% endfor %}
+     )</p>
 	{% endfor %}
+</div>
+</div>
 
 {% endblock %}

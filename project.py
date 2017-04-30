@@ -29,6 +29,22 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    return user
+
+def getCategoryFromProduct(product_id):
+    product = session.query(Product).filter_by(id=product_id).one()
+    category = session.query(Category).filter_by(id=product.category_id).one()
+    return category.name
+
+
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
 
 # Create anti-forgery state token
 @app.route('/login')
@@ -137,26 +153,6 @@ def createUser(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
-
-def getUserInfo(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
-    return user
-
-def getCategoryFromProduct(product_id):
-    product = session.query(Product).filter_by(id=product_id).one()
-    category = session.query(Category).filter_by(id=product.category_id).one()
-    return category.name
-
-
-def getUserID(email):
-    try:
-        user = session.query(User).filter_by(email=email).one()
-        return user.id
-    except:
-        return None
-
-
-
 @app.route('/disconnect')
 def disconnect():
     if 'username' not in login_session:
@@ -204,7 +200,6 @@ def categoryJSON(category_id):
 def productJSON(category_id, product_id):
     My_Product = session.query(Product).filter_by(id=product_id).one()
     return jsonify(Product=My_Product.serialize)
-
 
 @app.route('/category/JSON')
 def categoriesJSON():
@@ -293,8 +288,8 @@ def showCategory(category_id):
 def showProduct(category_id,product_id):
     category = session.query(Category).filter_by(id=category_id).one()
     product = session.query(Product).filter_by(id=product_id).one()
-    creator = product.user_id
-    if 'username' not in login_session or creator != login_session['user_id']: # login_session.get('user_id'): #
+    creator = getUserInfo(product.user_id)
+    if 'username' not in login_session or creator.id != login_session['user_id']: # login_session.get('user_id'): #
         return render_template('publicproduct.html', creator=creator, product=product, category=category)
     return render_template('product.html', product=product, category=category, creator = creator)
 

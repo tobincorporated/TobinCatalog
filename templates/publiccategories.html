@@ -1,24 +1,18 @@
 {% extends "main.html" %}
 {% block content %}
-	<div class="row top-menu">
-		<div class="col-md-10"></div>
-		<div class="col-md-2 text-right">
-			<a href="{{url_for('showLogin')}}">Click Here to Log in </a>
-		</div>
-	</div>
-	<div class="row divider blue">
-		<div class="col-md-12"></div>
-	</div>
-  <div class="row">
-    	<div class="banner main col-md-12">
-        <h2>The Item Catalog!<h2>
-      </div>
-  </div>
+
+<a class="top-menu text-right" href="{{url_for('showLogin')}}">Click Here to Log in </a>
+
+<div class="row divider blue">
+</div>
+
+<h2 class="row banner main ">The Item Catalog!<h2>
+
    <div class="col-md-5">
         <h1>Categories</h1>
       </div>
 	<div class = 'flash'>
-		      {% with messages = get_flashed_messages() %}
+		{% with messages = get_flashed_messages() %}
       {% if messages %}
 
         <ul>
