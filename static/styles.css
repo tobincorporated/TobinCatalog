@@ -139,14 +139,13 @@ a {
   background-color: #A6E8EB;
 }
 
-.banner h1 {
+h1.banner  {
   margin: 45px 0;
 }
 
 .category-list {
   background-color: #F0F0F0;
   padding: 20px;
-  u
 }
 
 .category-list:hover {

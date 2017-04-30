@@ -265,11 +265,13 @@ product2 = Product(user_id=1, name="Pen", description="Pack of 100 because pens 
 session.add(product2)
 session.commit()
 
-product1 = Product(user_id=1, name="Printer Paper", description="Print or scribble on this stuff.",
-                     price="$5.95",  category=category1)
+product1 = Product(user_id=1, name="Printer Paper", 
+                    description="Print or scribble on this stuff.",
+                    price="$5.95",
+                    category=category1)
 
 session.add(product1)
-session.commit
+session.commit()
 
 product1 = Product(user_id=1, name="Tape",
                      description="Now you can hold any two things together indefinitely", price="$6.95", category=category1)
