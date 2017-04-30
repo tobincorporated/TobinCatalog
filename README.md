@@ -25,9 +25,7 @@ Once it is up and running, type **vagrant ssh** to log into the virtual machine.
 
 change to the /vagrant directory by typing **cd /vagrant**. This will take you to the shared folder between your virtual machine and host machine.
 
-Now type **python database_setup.py** to initialize the database.
-
-Type **python lotsofproducts.py** to populate the database with products and categories. (Optional)
+(Optional) Now type **python database_setup.py** to initialize the database.  Type **python lotsofproducts.py** to populate the database with products and categories. This repository includes a pre-initialized database, so this is not necessary unless you would like to reinitialize it.
 
 Type **python project.py** to run the Flask web server.
 
